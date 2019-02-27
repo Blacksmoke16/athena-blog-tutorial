@@ -1,0 +1,29 @@
+name: blog
+version: 0.1.0
+
+authors:
+  - blacksmoke16 blacksmoke16@eve.tools
+
+targets:
+  blog:
+    main: src/blog.cr
+
+crystal: 0.27.2
+
+license: MIT
+
+dependencies:
+  granite:
+    github: amberframework/granite
+    branch: master
+  pg:
+    github: will/crystal-pg
+  athena:
+    github: blacksmoke16/athena
+  jwt:
+    github: crystal-community/jwt
+
+development_dependencies:
+  ameba:
+    github: veelenga/ameba
+    version: ~> 0.9.0

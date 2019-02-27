@@ -1,27 +1,5 @@
 # blog
 
-TODO: Write a description here
+Demo/tutorial for Athena.  Creating a REST JSON API backend for a blog.
 
-## Installation
-
-TODO: Write installation instructions here
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
-
-## Contributing
-
-1. Fork it (<https://github.com/your-github-user/blog/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
-
-## Contributors
-
-- [your-name-here](https://github.com/your-github-user) - creator and maintainer
+See the [Blog Post](https://dev.to/blacksmoke16/creating-a-json-api-with-athena--granite-4e7h-temp-slug-5582279) for details.

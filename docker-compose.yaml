@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  pg:
+    image: postgres:11.2-alpine
+    container_name: pg
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=blog_user
+      - POSTGRES_PASSWORD=mYAw3s0meB!log
+      - POSTGRES_DB=blog
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+volumes:
+  pg-data:
