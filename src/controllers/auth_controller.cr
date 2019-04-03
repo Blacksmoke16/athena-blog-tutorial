@@ -1,5 +1,5 @@
 module Blog::Controllers
-  struct AuthController < CorsController
+  struct AuthController < Athena::Routing::Controller
     @[Athena::Routing::Post(path: "login")]
     def self.login(body : HTTP::Params) : NamedTuple(token: String)
       # Find a user with the given ID

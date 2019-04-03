@@ -1,5 +1,5 @@
 module Blog::Controllers
-  @[Athena::Routing::Controller(prefix: "article")]
+  @[Athena::Routing::ControllerOptions(prefix: "article")]
   struct ArticleController < SecurityController
     @[Athena::Routing::Post(path: "")]
     @[Athena::Routing::ParamConverter(param: "body", type: Blog::Models::Article, converter: RequestBody)]

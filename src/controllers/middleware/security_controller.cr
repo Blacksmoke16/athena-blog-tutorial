@@ -1,5 +1,5 @@
 module Blog::Controllers
-  abstract struct SecurityController < CorsController
+  abstract struct SecurityController < Athena::Routing::Controller
     class_getter current_user : Blog::Models::User = Blog::Models::User.new # Set to new instance to prevent nil values
 
     @[Athena::Routing::Callback(event: Athena::Routing::CallbackEvents::OnRequest)]

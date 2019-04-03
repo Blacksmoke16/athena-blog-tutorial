@@ -1,5 +1,5 @@
 module Blog::Controllers
-  struct UserController < CorsController
+  struct UserController < Athena::Routing::Controller
     @[Athena::Routing::Post(path: "user")]
     @[Athena::Routing::ParamConverter(param: "body", id_type: Int64, type: Blog::Models::User, converter: RequestBody)]
     def self.new_user(body : Blog::Models::User) : Blog::Models::User
