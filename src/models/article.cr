@@ -1,7 +1,7 @@
 module Blog::Models
   @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
   class Article < Granite::Base
-    include CrSerializer
+    include CrSerializer(JSON)
 
     adapter my_blog
     table_name "articles"
@@ -28,7 +28,12 @@ module Blog::Models
       "@[CrSerializer::Options(expose: true, readonly: true)]",
     ]
 
-    field created_at : Time
-    field deleted_at : Time
+    field created_at : Time, annotations: [
+      "@[CrSerializer::Options(expose: true, readonly: true)]",
+    ]
+
+    field deleted_at : Time, annotations: [
+      "@[CrSerializer::Options(readonly: true)]",
+    ]
   end
 end

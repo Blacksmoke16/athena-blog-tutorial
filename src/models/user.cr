@@ -1,7 +1,7 @@
 module Blog::Models
-  @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
+  # @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
   class User < Granite::Base
-    include CrSerializer
+    include CrSerializer(JSON)
 
     adapter my_blog
     table_name "users"
@@ -32,8 +32,14 @@ module Blog::Models
       %(@[Assert::Size(range: 8_f64..25_f64, min_message: "Your password is too short", max_message: "Your password is too long")]),
     ]
 
-    field created_at : Time
-    field updated_at : Time
+    field created_at : Time, annotations: [
+      "@[CrSerializer::Options(expose: true)]",
+    ]
+
+    field updated_at : Time, annotations: [
+      "@[CrSerializer::Options(expose: true)]",
+    ]
+
     field deleted_at : Time
 
     before_save :hash_password
@@ -54,21 +60,5 @@ module Blog::Models
         "HS512"
       )
     end
-  end
-end
-
-# Workaround for https://github.com/crystal-lang/crystal/issues/7461
-struct String::Formatter(A)
-  private def consume_formatted_substitution
-    key = consume_substitution_key '>'
-    next_char
-    arg = current_arg
-    if arg.is_a?(Hash) || arg.is_a?(NamedTuple)
-      target_arg = arg[key] unless arg.empty? # Only set target_arg if the arg is not empty.
-    else
-      raise ArgumentError.new "One hash or named tuple required"
-    end
-    flags = consume_flags
-    consume_type flags, target_arg, true
   end
 end

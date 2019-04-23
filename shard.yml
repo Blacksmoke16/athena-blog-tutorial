@@ -1,5 +1,5 @@
 name: blog
-version: 0.1.0
+version: 0.2.0
 
 authors:
   - blacksmoke16 blacksmoke16@eve.tools
@@ -15,7 +15,6 @@ license: MIT
 dependencies:
   granite:
     github: amberframework/granite
-    branch: master
   pg:
     github: will/crystal-pg
   athena:
