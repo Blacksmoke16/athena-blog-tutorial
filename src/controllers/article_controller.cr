@@ -34,7 +34,7 @@ module Blog::Controllers
     def delete_article(article : Blog::Models::Article) : Nil
       article.deleted_at = Time.utc
       article.save
-      get_response.status = HTTP::Status::ACCEPTED
+      @request_stack.response.status = HTTP::Status::ACCEPTED
     end
   end
 end
