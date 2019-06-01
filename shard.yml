@@ -15,10 +15,12 @@ license: MIT
 dependencies:
   granite:
     github: amberframework/granite
+    branch: master
   pg:
     github: will/crystal-pg
   athena:
     github: blacksmoke16/athena
+    branch: master
   jwt:
     github: crystal-community/jwt
 

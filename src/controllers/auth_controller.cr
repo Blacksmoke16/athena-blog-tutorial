@@ -8,6 +8,8 @@ module Blog::Controllers
       # Raise a 401 error if either a user isn't found or the password does not match
       raise Athena::Routing::Exceptions::UnauthorizedException.new "Invalid username and/or password" if !user || !(Crypto::Bcrypt::Password.new(user.password!) == body["password"])
 
+      Athena.logger.info "User logged in", Crylog::LogContext{"user_id" => user.id}
+
       {token: user.generate_jwt}
     end
   end

@@ -23,11 +23,21 @@ require "jwt"
 # Require our models
 require "./models/*"
 
-# Require our middleware
-require "./controllers/middleware/*"
-
 # Require our controllers
 require "./controllers/*"
+
+require "./middleware/*"
+require "./services/*"
+require "./logger/*"
+
+@[Athena::DI::Register("GOOGLE", "Google", name: "google", tags: ["feed_partner"])]
+@[Athena::DI::Register("FACEBOOK", "Facebook", name: "facebook", tags: ["feed_partner"])]
+struct FeedPartner < Athena::DI::StructService
+  getter id : String
+  getter name : String
+
+  def initialize(@id : String, @name : String); end
+end
 
 module Blog
   VERSION = "0.1.0"
@@ -36,5 +46,32 @@ module Blog
   include Models
   include Controllers
 
-  Athena::Routing.run
+  def Athena.configure_logger
+    Crylog.configure do |registry|
+      registry.register "main" do |logger|
+        handlers = [] of Crylog::Handlers::LogHandler
+
+        if Athena.environment == "development"
+          # Log to STDOUT and development log file if in develop env
+          handlers << Crylog::Handlers::IOHandler.new(STDOUT)
+          handlers << Crylog::Handlers::IOHandler.new(File.open("#{Athena.logs_dir}/development.log", "a"))
+        elsif Athena.environment == "production"
+          # Log warnings and higher to production log file if in production env.
+          handlers << Crylog::Handlers::IOHandler.new(File.open("#{Athena.logs_dir}/production.log", "a"))
+        end
+
+        logger.processors = [Blog::UserProcessor.new] of Crylog::Processors::LogProcessors
+
+        logger.handlers = handlers
+      end
+    end
+  end
+
+  Athena::Routing.run(
+    handlers: [
+      SecurityHandler.new,
+      Athena::Routing::Handlers::CorsHandler.new,
+      Athena::Routing::Handlers::ActionHandler.new,
+    ] of HTTP::Handler
+  )
 end

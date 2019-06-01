@@ -1,0 +1,38 @@
+version: 1.0
+shards:
+  CrSerializer:
+    github: blacksmoke16/CrSerializer
+    version: 0.7.1
+
+  amber_router:
+    github: amberframework/amber-router
+    version: 0.3.0
+
+  ameba:
+    github: veelenga/ameba
+    version: 0.9.1
+
+  athena:
+    github: blacksmoke16/athena
+    commit: 482b42c935cfa7ad2f0c9343534e05f77400d745
+
+  crylog:
+    github: blacksmoke16/crylog
+    version: 0.1.0
+
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.5.1
+
+  granite:
+    github: amberframework/granite
+    commit: 70afa143ec80a8b7aaa7e197ea145061c5598fa7
+
+  jwt:
+    github: crystal-community/jwt
+    version: 0.4.0
+
+  pg:
+    github: will/crystal-pg
+    version: 0.16.1
+
