@@ -6,7 +6,7 @@ module Blog::Controllers
       user = Blog::Models::User.find_by email: body["email"]
 
       # Raise a 401 error if either a user isn't found or the password does not match
-      raise Athena::Routing::Exceptions::UnauthorizedException.new "Invalid username and/or password" if !user || !(Crypto::Bcrypt::Password.new(user.password!) == body["password"])
+      raise Athena::Routing::Exceptions::UnauthorizedException.new "Invalid username and/or password" if !user || !(Crypto::Bcrypt::Password.new(user.password).verify body["password"])
 
       Athena.logger.info "User logged in", Crylog::LogContext{"user_id" => user.id}
 

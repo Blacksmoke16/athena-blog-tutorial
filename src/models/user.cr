@@ -1,46 +1,39 @@
 module Blog::Models
-  # @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
+  @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
   class User < Granite::Base
     include CrSerializer(JSON)
 
-    adapter my_blog
-    table_name "users"
+    connection my_blog
+    table "users"
 
     has_many articles : Article
 
-    primary id : Int64, annotations: [
-      "@[CrSerializer::Options(expose: true, readonly: true)]",
-    ]
+    @[CrSerializer::Options(expose: true, readonly: true)]
+    column id : Int64, primary: true
 
-    field! first_name : String, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-      "@[Assert::NotBlank]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    @[Assert::NotBlank]
+    column first_name : String
 
-    field! last_name : String, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-      "@[Assert::NotBlank]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    @[Assert::NotBlank]
+    column last_name : String
 
-    field! email : String, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-      "@[Assert::NotBlank]",
-      "@[Assert::Email(mode: CrSerializer::Assertions::EmailValidationMode::HTML5)]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    @[Assert::NotBlank]
+    @[Assert::Email(mode: CrSerializer::Assertions::EmailValidationMode::HTML5)]
+    column email : String
 
-    field password : String, annotations: [
-      %(@[Assert::Size(range: 8_f64..25_f64, min_message: "Your password is too short", max_message: "Your password is too long")]),
-    ]
+    @[Assert::Size(range: 8_f64..25_f64, min_message: "Your password is too short", max_message: "Your password is too long")]
+    column password : String
 
-    field created_at : Time, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    column created_at : Time?
 
-    field updated_at : Time, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    column updated_at : Time?
 
-    field deleted_at : Time
+    column deleted_at : Time?
 
     before_save :hash_password
 
@@ -53,11 +46,11 @@ module Blog::Models
     def generate_jwt : String
       JWT.encode({
         "user_id" => @id,
-        "exp"     => (Time.utc_now + 1.week).to_unix,
-        "iat"     => Time.utc_now.to_unix,
+        "exp"     => (Time.utc + 1.week).to_unix,
+        "iat"     => Time.utc.to_unix,
       },
-        ENV["secret"],
-        "HS512"
+        ENV["SECRET"],
+        :hs512
       )
     end
   end

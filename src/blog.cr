@@ -1,8 +1,5 @@
 # Register an adapter to connect to our DB
-Granite::Adapters << Granite::Adapter::Pg.new({name: "my_blog", url: "postgres://blog_user:mYAw3s0meB!log@localhost:5432/blog?currentSchema=blog"})
-
-# Lets turn on the logs to see the queries being made
-Granite.settings.logger = Logger.new STDOUT, Logger::DEBUG
+Granite::Connections << Granite::Adapter::Pg.new(name: "my_blog", url: "postgres://blog_user:mYAw3s0meB!log@localhost:5432/blog?currentSchema=blog")
 
 # Require some standard library things we'll need
 require "crypto/bcrypt/password"
@@ -29,15 +26,6 @@ require "./controllers/*"
 require "./middleware/*"
 require "./services/*"
 require "./logger/*"
-
-@[Athena::DI::Register("GOOGLE", "Google", name: "google", tags: ["feed_partner"])]
-@[Athena::DI::Register("FACEBOOK", "Facebook", name: "facebook", tags: ["feed_partner"])]
-struct FeedPartner < Athena::DI::StructService
-  getter id : String
-  getter name : String
-
-  def initialize(@id : String, @name : String); end
-end
 
 module Blog
   VERSION = "0.1.0"

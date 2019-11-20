@@ -3,37 +3,30 @@ module Blog::Models
   class Article < Granite::Base
     include CrSerializer(JSON)
 
-    adapter my_blog
-    table_name "articles"
+    connection my_blog
+    table "articles"
 
-    belongs_to :user, annotations: [
-      "@[CrSerializer::Options(expose: true, readonly: true)]",
-    ]
+    @[CrSerializer::Options(expose: true, readonly: true)]
+    belongs_to user : User
 
-    primary id : Int64, annotations: [
-      "@[CrSerializer::Options(expose: true, readonly: true)]",
-    ]
+    @[CrSerializer::Options(expose: true, readonly: true)]
+    column id : Int64, primary: true
 
-    field! title : String, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-      "@[Assert::NotBlank]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    @[Assert::NotBlank]
+    column title : String
 
-    field! body : String, annotations: [
-      "@[CrSerializer::Options(expose: true)]",
-      "@[Assert::NotBlank]",
-    ]
+    @[CrSerializer::Options(expose: true)]
+    @[Assert::NotBlank]
+    column body : String
 
-    field updated_at : Time, annotations: [
-      "@[CrSerializer::Options(expose: true, readonly: true)]",
-    ]
+    @[CrSerializer::Options(expose: true, readonly: true)]
+    column updated_at : Time?
 
-    field created_at : Time, annotations: [
-      "@[CrSerializer::Options(expose: true, readonly: true)]",
-    ]
+    @[CrSerializer::Options(expose: true, readonly: true)]
+    column created_at : Time?
 
-    field deleted_at : Time, annotations: [
-      "@[CrSerializer::Options(readonly: true)]",
-    ]
+    @[CrSerializer::Options(readonly: true)]
+    column deleted_at : Time?
   end
 end

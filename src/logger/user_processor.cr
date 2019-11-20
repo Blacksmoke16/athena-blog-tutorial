@@ -4,10 +4,10 @@ module Blog
       user_storage = Athena::DI.get_container.get("user_storage").as(UserStorage)
 
       # Return early if a message was logged in a public endpoint there won't be a user in storage
-      return unless user_storage.has_user?
+      return unless user = user_storage.user?
 
       # Add the current user's id to all log messages
-      message.extra["user_id"] = user_storage.user.id
+      message.extra["user_id"] = user.id
     end
   end
 end
