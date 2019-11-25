@@ -35,6 +35,9 @@ module Blog
   include Controllers
 
   def Athena.configure_logger
+    # Create the logs dir if it doesn't exist already.
+    Dir.mkdir Athena.logs_dir unless Dir.exists? Athena.logs_dir
+
     Crylog.configure do |registry|
       registry.register "main" do |logger|
         handlers = [] of Crylog::Handlers::LogHandler
