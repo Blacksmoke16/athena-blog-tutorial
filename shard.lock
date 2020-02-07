@@ -2,7 +2,7 @@ version: 1.0
 shards:
   CrSerializer:
     github: blacksmoke16/CrSerializer
-    commit: 65c527c8d52ebff79e8164768b5396c31f9a6bb3
+    version: 0.9.1
 
   amber_router:
     github: amberframework/amber-router
@@ -18,7 +18,7 @@ shards:
 
   athena:
     github: athena-framework/athena
-    commit: b43317b05753c74bc838cb08a049758d60a650ea
+    version: 0.8.0
 
   athena-config:
     github: athena-framework/config
