@@ -1,7 +1,9 @@
-module Blog
-  @[Athena::DI::Register]
-  class UserStorage < Athena::DI::ClassService
-    # Use a ! property since they'll always be a user defined in our use case
-    property! user : Blog::Models::User
-  end
+@[ADI::Register]
+class Blog::UserStorage
+  include ADI::Service
+
+  # Use a ! property since they'll always be a user defined in our use case.
+  #
+  # It also provides a `user?` getter in cases where it might not be.
+  property! user : Blog::Models::User
 end

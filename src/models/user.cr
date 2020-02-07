@@ -1,37 +1,40 @@
 module Blog::Models
-  @[CrSerializer::ClassOptions(exclusion_policy: CrSerializer::ExclusionPolicy::ExcludeAll)]
+  @[CRS::ExclusionPolicy(:all)]
   class User < Granite::Base
-    include CrSerializer(JSON)
+    include CrSerializer
+    include Assert
 
     connection my_blog
     table "users"
 
     has_many articles : Article
 
-    @[CrSerializer::Options(expose: true, readonly: true)]
+    @[CRS::Expose]
+    @[CRS::ReadOnly]
     column id : Int64, primary: true
 
-    @[CrSerializer::Options(expose: true)]
+    @[CRS::Expose]
     @[Assert::NotBlank]
     column first_name : String
 
-    @[CrSerializer::Options(expose: true)]
+    @[CRS::Expose]
     @[Assert::NotBlank]
     column last_name : String
 
-    @[CrSerializer::Options(expose: true)]
+    @[CRS::Expose]
     @[Assert::NotBlank]
-    @[Assert::Email(mode: CrSerializer::Assertions::EmailValidationMode::HTML5)]
+    @[Assert::Email(mode: :html5)]
     column email : String
 
-    @[Assert::Size(range: 8_f64..25_f64, min_message: "Your password is too short", max_message: "Your password is too long")]
+    @[CRS::IgnoreOnSerialize]
+    @[Assert::Size(Range(Int32, Int32), range: 8..25, min_message: "Your password is too short", max_message: "Your password is too long")]
     column password : String
 
-    @[CrSerializer::Options(expose: true)]
-    column created_at : Time?
+    @[CRS::Expose]
+    column created_at : Time
 
-    @[CrSerializer::Options(expose: true)]
-    column updated_at : Time?
+    @[CRS::Expose]
+    column updated_at : Time
 
     column deleted_at : Time?
 

@@ -1,16 +1,27 @@
-module Blog::Controllers
-  class AuthController < Athena::Routing::Controller
-    @[Athena::Routing::Post(path: "login")]
-    def login(body : HTTP::Params) : NamedTuple(token: String)
-      # Find a user with the given ID
-      user = Blog::Models::User.find_by email: body["email"]
+class Blog::Controllers::AuthController < ART::Controller
+  @[ART::Post(path: "login")]
+  def login(request : HTTP::Request) : NamedTuple(token: String)
+    # Raise an exception if there is no request body
+    raise ART::Exceptions::BadRequest.new "Missing request body" unless body = request.body
 
-      # Raise a 401 error if either a user isn't found or the password does not match
-      raise Athena::Routing::Exceptions::UnauthorizedException.new "Invalid username and/or password" if !user || !(Crypto::Bcrypt::Password.new(user.password).verify body["password"])
+    # Parse the request body into an HTTP::Params object
+    form_data = HTTP::Params.parse body.gets_to_end
 
-      Athena.logger.info "User logged in", Crylog::LogContext{"user_id" => user.id}
+    # Handle missing form values
+    handle_invalid_auth_credentials unless email = form_data["email"]?
+    handle_invalid_auth_credentials unless password = form_data["password"]?
 
-      {token: user.generate_jwt}
-    end
+    # Find a user with the given ID
+    user = Blog::Models::User.find_by email: email
+
+    # Raise a 401 error if either a user isn't found or the password does not match
+    handle_invalid_auth_credentials if !user || !(Crypto::Bcrypt::Password.new(user.password).verify password)
+
+    # Return the token
+    {token: user.generate_jwt}
+  end
+
+  private def handle_invalid_auth_credentials : Nil
+    raise ART::Exceptions::Unauthorized.new "Bearer realm=\"My Blog\"", "Invalid username and/or password"
   end
 end
