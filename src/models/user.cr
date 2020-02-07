@@ -31,10 +31,10 @@ module Blog::Models
     column password : String
 
     @[CRS::Expose]
-    column created_at : Time
+    column created_at : Time?
 
     @[CRS::Expose]
-    column updated_at : Time
+    column updated_at : Time?
 
     column deleted_at : Time?
 

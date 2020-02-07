@@ -27,11 +27,11 @@ module Blog::Models
 
     @[CRS::Expose]
     @[CRS::ReadOnly]
-    column updated_at : Time
+    column updated_at : Time?
 
     @[CRS::Expose]
     @[CRS::ReadOnly]
-    column created_at : Time
+    column created_at : Time?
 
     @[CRS::ReadOnly]
     column deleted_at : Time?

@@ -1,2 +1,12 @@
 # Config file for Athena.
 ---
+routing:
+  cors:
+    allow_credentials: true
+    allow_origin: 
+      - https://api.myblog.com
+    allow_methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
