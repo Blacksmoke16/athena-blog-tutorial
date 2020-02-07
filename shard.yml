@@ -21,10 +21,10 @@ dependencies:
     version: 0.20.0
   athena:
     github: athena-framework/athena
-    branch: master
+    version: 0.8.0
   CrSerializer:
     github: blacksmoke16/CrSerializer
-    branch: master
+    version: 0.9.1
   jwt:
     github: crystal-community/jwt
     version: 1.4.0
