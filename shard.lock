@@ -2,7 +2,7 @@ version: 1.0
 shards:
   CrSerializer:
     github: blacksmoke16/CrSerializer
-    version: 0.8.2
+    version: 0.9.1
 
   amber_router:
     github: amberframework/amber-router
@@ -10,33 +10,49 @@ shards:
 
   ameba:
     github: crystal-ameba/ameba
-    version: 0.10.1
+    version: 0.11.0
+
+  assert:
+    github: blacksmoke16/assert
+    version: 0.2.0
 
   athena:
-    github: blacksmoke16/athena
-    version: 0.7.0
+    github: athena-framework/athena
+    version: 0.8.0
 
-  crylog:
-    github: blacksmoke16/crylog
-    version: 0.1.5
+  athena-config:
+    github: athena-framework/config
+    version: 0.1.0
+
+  athena-dependency_injection:
+    github: athena-framework/dependency-injection
+    version: 0.1.1
+
+  athena-event_dispatcher:
+    github: athena-framework/event-dispatcher
+    version: 0.1.0
+
+  bindata:
+    github: spider-gazelle/bindata
+    version: 1.2.0
 
   db:
     github: crystal-lang/crystal-db
-    version: 0.7.0
+    version: 0.8.0
 
   granite:
     github: amberframework/granite
-    version: 0.18.0
+    version: 0.19.0
 
   jwt:
     github: crystal-community/jwt
-    version: 1.1.2
+    version: 1.4.0
 
   openssl_ext:
     github: stakach/openssl_ext
-    version: 1.0.0
+    version: 1.2.0
 
   pg:
     github: will/crystal-pg
-    version: 0.19.0
+    version: 0.20.0
 

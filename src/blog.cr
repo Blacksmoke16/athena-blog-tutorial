@@ -9,10 +9,13 @@ require "granite"
 require "granite/adapter/pg"
 
 # Require Athena
-require "athena/routing"
+require "athena"
 
-# Require Athena's granite extension
-require "athena/routing/ext/granite"
+# This will eventually be replaced by Athena's serializer component
+require "CrSerializer"
+
+# This will eventually be replaced by Athena's validation component
+require "assert"
 
 # Require JWT shard
 require "jwt"
@@ -22,47 +25,16 @@ require "./models/*"
 
 # Require our controllers
 require "./controllers/*"
-
-require "./middleware/*"
+require "./converters/*"
+require "./listeners/*"
 require "./services/*"
-require "./logger/*"
 
 module Blog
-  VERSION = "0.1.0"
+  VERSION = "0.8.0"
 
   # Include our models into the main module
   include Models
   include Controllers
 
-  def Athena.configure_logger
-    # Create the logs dir if it doesn't exist already.
-    Dir.mkdir Athena.logs_dir unless Dir.exists? Athena.logs_dir
-
-    Crylog.configure do |registry|
-      registry.register "main" do |logger|
-        handlers = [] of Crylog::Handlers::LogHandler
-
-        if Athena.environment == "development"
-          # Log to STDOUT and development log file if in develop env
-          handlers << Crylog::Handlers::IOHandler.new(STDOUT)
-          handlers << Crylog::Handlers::IOHandler.new(File.open("#{Athena.logs_dir}/development.log", "a"))
-        elsif Athena.environment == "production"
-          # Log warnings and higher to production log file if in production env.
-          handlers << Crylog::Handlers::IOHandler.new(File.open("#{Athena.logs_dir}/production.log", "a"))
-        end
-
-        logger.processors = [Blog::UserProcessor.new] of Crylog::Processors::LogProcessors
-
-        logger.handlers = handlers
-      end
-    end
-  end
-
-  Athena::Routing.run(
-    handlers: [
-      SecurityHandler.new,
-      Athena::Routing::Handlers::CorsHandler.new,
-      Athena::Routing::Handlers::ActionHandler.new,
-    ] of HTTP::Handler
-  )
+  ART.run
 end
