@@ -1,7 +1,10 @@
 @[ART::Prefix("article")]
+# The `ART::Prefix` annotation will add the given prefix to each route in the controller.
 class Blog::Controllers::ArticleController < ART::Controller
+  # Tell the DI component to auto inject the required services
   include ADI::Injectable
 
+  # Define our initializer for DI
   def initialize(@user_storage : UserStorage); end
 
   @[ART::Post(path: "")]

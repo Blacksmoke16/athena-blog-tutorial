@@ -1,6 +1,6 @@
 class Blog::Controllers::AuthController < ART::Controller
-  @[ART::Post(path: "login")]
-  def login(request : HTTP::Request) : NamedTuple(token: String)
+  @[ART::Post("login")]
+  def login(request : HTTP::Request) : ART::Response
     # Raise an exception if there is no request body
     raise ART::Exceptions::BadRequest.new "Missing request body" unless body = request.body
 
@@ -17,11 +17,14 @@ class Blog::Controllers::AuthController < ART::Controller
     # Raise a 401 error if either a user isn't found or the password does not match
     handle_invalid_auth_credentials if !user || !(Crypto::Bcrypt::Password.new(user.password).verify password)
 
-    # Return the token
-    {token: user.generate_jwt}
+    # If an `ART::Response` is returned then it is used as is for the response,
+    # otherwise, like the other endpoints, the response value is by default JSON serialized
+    ART::Response.new({token: user.generate_jwt}.to_json, headers: HTTP::Headers{"content-type" => "application/json"})
   end
 
   private def handle_invalid_auth_credentials : Nil
-    raise ART::Exceptions::Unauthorized.new "Bearer realm=\"My Blog\"", "Invalid username and/or password"
+    # Raise a 401 error if values are missing, or are invalid;
+    # this also handles setting an appropiate www-authenticate header
+    raise ART::Exceptions::Unauthorized.new "Basic realm=\"My Blog\"", "Invalid username and/or password"
   end
 end

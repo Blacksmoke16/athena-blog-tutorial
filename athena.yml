@@ -1,4 +1,3 @@
-# Config file for Athena.
 ---
 routing:
   cors:

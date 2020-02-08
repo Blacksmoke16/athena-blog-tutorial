@@ -1,4 +1,6 @@
+# The converter can be a struct/class, I'm going to use a struct for this example.
 struct Blog::Converters::RequestBody(T)
+  # Athena uses interfaces in order to prevent types being dependent on concrete types
   include ART::ParamConverterInterface(T)
 
   # :inherit:
@@ -14,6 +16,7 @@ struct Blog::Converters::RequestBody(T)
       # TODO: Make this less hacky?  Probably build something into the serializer to allow customizing how the object gets instantiated for properties to be applied?
       data = JSON.parse body
 
+      # Return a 404 if the data does not have an `id` or the record doesn't exist
       raise ART::Exceptions::NotFound.new "An Item with the provided ID could not be found" unless (id = data["id"]?) && (existing_record = T.find id)
 
       # Set the ID on the deserialized entity to the id of the existing record now that we know it exists
@@ -29,6 +32,7 @@ struct Blog::Converters::RequestBody(T)
     # Return the object
     obj
   rescue ex : Assert::Exceptions::ValidationError
+    # Raise a 422 error if the object failed its validations
     raise ART::Exceptions::UnprocessableEntity.new ex.to_s
   end
 end
