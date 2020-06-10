@@ -1,58 +1,58 @@
-version: 1.0
+version: 2.0
 shards:
   CrSerializer:
-    github: blacksmoke16/CrSerializer
+    git: https://github.com/blacksmoke16/CrSerializer.git
     version: 0.9.1
 
   amber_router:
-    github: amberframework/amber-router
-    version: 0.3.0
+    git: https://github.com/amberframework/amber-router.git
+    version: 0.4.2
 
   ameba:
-    github: crystal-ameba/ameba
-    version: 0.11.0
+    git: https://github.com/crystal-ameba/ameba.git
+    version: 0.12.1
 
   assert:
-    github: blacksmoke16/assert
+    git: https://github.com/blacksmoke16/assert.git
     version: 0.2.0
 
   athena:
-    github: athena-framework/athena
-    version: 0.8.0
+    git: https://github.com/athena-framework/athena.git
+    version: 0.9.0+git.commit.47206740522d548300007e1aeb480475945e0789
 
   athena-config:
-    github: athena-framework/config
-    version: 0.1.0
-
-  athena-dependency_injection:
-    github: athena-framework/dependency-injection
+    git: https://github.com/athena-framework/config.git
     version: 0.1.1
 
+  athena-dependency_injection:
+    git: https://github.com/athena-framework/dependency-injection.git
+    version: 0.2.0
+
   athena-event_dispatcher:
-    github: athena-framework/event-dispatcher
+    git: https://github.com/athena-framework/event-dispatcher.git
     version: 0.1.0
 
   bindata:
-    github: spider-gazelle/bindata
-    version: 1.2.0
+    git: https://github.com/spider-gazelle/bindata.git
+    version: 1.5.3
 
   db:
-    github: crystal-lang/crystal-db
-    version: 0.8.0
+    git: https://github.com/crystal-lang/crystal-db.git
+    version: 0.9.0
 
   granite:
-    github: amberframework/granite
-    version: 0.19.0
+    git: https://github.com/amberframework/granite.git
+    version: 0.21.0+git.commit.0e6df386228552b166acdf8a966787117eba4058
 
   jwt:
-    github: crystal-community/jwt
+    git: https://github.com/crystal-community/jwt.git
     version: 1.4.0
 
   openssl_ext:
-    github: stakach/openssl_ext
-    version: 1.2.0
+    git: https://github.com/stakach/openssl_ext.git
+    version: 1.2.1
 
   pg:
-    github: will/crystal-pg
-    version: 0.20.0
+    git: https://github.com/will/crystal-pg.git
+    version: 0.21.1
 
