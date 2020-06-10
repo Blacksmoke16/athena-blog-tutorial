@@ -1,5 +1,5 @@
-@[ADI::Register]
 # The ADI::Register annotation tells the DI component how this service should be registered
+@[ADI::Register]
 class Blog::UserStorage
   # Use a ! property since they'll always be a user defined in our use case.
   #

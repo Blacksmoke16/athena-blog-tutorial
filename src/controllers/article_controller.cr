@@ -1,6 +1,9 @@
+# The `ART::Prefix` annotation will add the given prefix to each route in the controller.
+# We also register the controller itself as a service in order to allow injecting our `UserStorage` object.
+# NOTE: The controller service must be declared as public.  In the future this will happen behind the scenes
+# but for now it cannot be done automatically.
 @[ART::Prefix("article")]
 @[ADI::Register(public: true)]
-# The `ART::Prefix` annotation will add the given prefix to each route in the controller.
 class Blog::Controllers::ArticleController < ART::Controller
   # Define our initializer for DI
   def initialize(@user_storage : Blog::UserStorage); end

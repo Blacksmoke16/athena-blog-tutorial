@@ -1,6 +1,9 @@
-# The converter can be a struct/class, I'm going to use a struct for this example.
+# Define our converter, register it as a service, inheriting from the base interface struct.
 @[ADI::Register]
 struct Blog::Converters::RequestBody < ART::ParamConverterInterface
+  # Define a customer configuration for this converter.
+  # This allows us to provide a `model` field within the annotation
+  # in order to define _what_ model should be used on deserialization.
   configuration model : Granite::Base.class
 
   # :inherit:
@@ -8,7 +11,7 @@ struct Blog::Converters::RequestBody < ART::ParamConverterInterface
     # Be sure to handle any possible exceptions here to return more helpful errors to the client.
     raise ART::Exceptions::BadRequest.new "Request body is empty" unless body = request.body.try &.gets_to_end
 
-    # Deserialize the object
+    # Deserialize the object, based on the type provided in the annotation
     obj = configuration.model.from_json body
 
     if request.method == "PUT"

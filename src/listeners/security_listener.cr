@@ -1,6 +1,5 @@
+# Define and register a listener to handle authenticating requests.
 @[ADI::Register]
-# Define a listener to handle authenticating requests.
-# Also register it as a service and give it the proper tag for it to be automatically registered.
 struct Blog::Listeners::SecurityListener
   # Define the interface to implement the required methods
   include AED::EventListenerInterface

@@ -1,4 +1,5 @@
 class Blog::Controllers::AuthController < ART::Controller
+  # Type hinting an action argument to `HTTP::Request` will supply the current request object.
   @[ART::Post("login")]
   def login(request : HTTP::Request) : ART::Response
     # Raise an exception if there is no request body
