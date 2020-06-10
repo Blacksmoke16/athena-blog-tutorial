@@ -1,14 +1,12 @@
 @[ART::Prefix("article")]
+@[ADI::Register(public: true)]
 # The `ART::Prefix` annotation will add the given prefix to each route in the controller.
 class Blog::Controllers::ArticleController < ART::Controller
-  # Tell the DI component to auto inject the required services
-  include ADI::Injectable
-
   # Define our initializer for DI
-  def initialize(@user_storage : UserStorage); end
+  def initialize(@user_storage : Blog::UserStorage); end
 
   @[ART::Post(path: "")]
-  @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody(Blog::Models::Article))]
+  @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody, model: Blog::Models::Article)]
   def new_article(article : Blog::Models::Article) : Blog::Models::Article
     # Set the owner of the article to the currently authenticated user
     article.user = @user_storage.user
@@ -24,7 +22,7 @@ class Blog::Controllers::ArticleController < ART::Controller
   end
 
   @[ART::Put(path: "")]
-  @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody(Blog::Models::Article))]
+  @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody, model: Blog::Models::Article)]
   def update_article(article : Blog::Models::Article) : Blog::Models::Article
     # Set the owner of the article to the currently authenticated user
     article.user = @user_storage.user
@@ -33,13 +31,13 @@ class Blog::Controllers::ArticleController < ART::Controller
   end
 
   @[ART::Get("/:id")]
-  @[ART::ParamConverter("article", converter: Blog::Converters::DB(Blog::Models::Article))]
+  @[ART::ParamConverter("article", converter: Blog::Converters::DB, model: Blog::Models::Article)]
   def get_article(article : Blog::Models::Article) : Blog::Models::Article
     article
   end
 
   @[ART::Delete("/:id")]
-  @[ART::ParamConverter("article", converter: Blog::Converters::DB(Blog::Models::Article))]
+  @[ART::ParamConverter("article", converter: Blog::Converters::DB, model: Blog::Models::Article)]
   def delete_article(article : Blog::Models::Article) : Nil
     article.deleted_at = Time.utc
     article.save

@@ -25,6 +25,6 @@ class Blog::Controllers::AuthController < ART::Controller
   private def handle_invalid_auth_credentials : Nil
     # Raise a 401 error if values are missing, or are invalid;
     # this also handles setting an appropiate www-authenticate header
-    raise ART::Exceptions::Unauthorized.new "Basic realm=\"My Blog\"", "Invalid username and/or password"
+    raise ART::Exceptions::Unauthorized.new "Invalid username and/or password", "Basic realm=\"My Blog\""
   end
 end

@@ -1,27 +1,27 @@
 name: blog
-version: 0.8.0
+version: 0.9.0
 
 authors:
-  - blacksmoke16 blacksmoke16@eve.tools
+  - George Dietrich george@dietrich.app
 
 targets:
   blog:
     main: src/blog.cr
 
-crystal: 0.32.1
+crystal: 0.35.0
 
 license: MIT
 
 dependencies:
   granite:
     github: amberframework/granite
-    version: 0.19.0
+    version: 0.21.0
   pg:
     github: will/crystal-pg
-    version: 0.20.0
+    version: 0.21.1
   athena:
     github: athena-framework/athena
-    version: 0.8.0
+    version: 0.9.0
   CrSerializer:
     github: blacksmoke16/CrSerializer
     version: 0.9.1
@@ -35,4 +35,4 @@ dependencies:
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 0.11.0
+    version: ~> 0.12.0
