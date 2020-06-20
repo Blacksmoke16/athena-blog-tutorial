@@ -1,37 +1,37 @@
-@[CRS::ExclusionPolicy(:all)]
+@[ASRA::ExclusionPolicy(:all)]
 class Blog::Models::Article < Granite::Base
-  include CrSerializer
+  include ASR::Serializable
   include Assert
 
   connection my_blog
   table "articles"
 
-  @[CRS::Expose]
-  @[CRS::ReadOnly]
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
   belongs_to user : User
 
-  @[CRS::Expose]
-  @[CRS::ReadOnly]
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
   column id : Int64, primary: true
 
-  @[CRS::Expose]
+  @[ASRA::Expose]
   @[Assert::NotBlank]
   @[Assert::NotNil]
   column title : String
 
-  @[CRS::Expose]
+  @[ASRA::Expose]
   @[Assert::NotBlank]
   @[Assert::NotNil]
   column body : String
 
-  @[CRS::Expose]
-  @[CRS::ReadOnly]
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
   column updated_at : Time?
 
-  @[CRS::Expose]
-  @[CRS::ReadOnly]
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
   column created_at : Time?
 
-  @[CRS::ReadOnly]
+  @[ASRA::ReadOnly]
   column deleted_at : Time?
 end
