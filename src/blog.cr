@@ -11,10 +11,6 @@ require "granite/adapter/pg"
 # Require Athena
 require "athena"
 
-# Require Athena's serializer component and extension
-require "athena-serializer"
-require "athena/ext/serializer"
-
 # This will eventually be replaced by Athena's validation component
 require "assert"
 
@@ -24,7 +20,7 @@ require "jwt"
 # Require our models
 require "./models/*"
 
-# Require our controllers
+# Require rest of the application
 require "./controllers/*"
 require "./converters/*"
 require "./listeners/*"

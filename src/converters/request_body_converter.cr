@@ -36,6 +36,11 @@ class DBObjectConstructor
   end
 end
 
+# Make the compiler happy when we want to allow any Granite model to be deserializable.
+class Granite::Base
+  include ASR::Model
+end
+
 # Define our converter, register it as a service, inheriting from the base interface struct.
 @[ADI::Register]
 struct Blog::Converters::RequestBody < ART::ParamConverterInterface
