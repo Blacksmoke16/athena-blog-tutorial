@@ -1,2 +1,2 @@
-create schema blog;
-ALTER ROLE blog_user SET SEARCH_PATH TO "blog";
+CREATE SCHEMA "blog";
+ALTER ROLE "blog_user" SET SEARCH_PATH TO "blog";

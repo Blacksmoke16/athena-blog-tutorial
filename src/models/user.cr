@@ -1,39 +1,41 @@
-@[CRS::ExclusionPolicy(:all)]
+@[ASRA::ExclusionPolicy(:all)]
 class Blog::Models::User < Granite::Base
-  include CrSerializer
+  include ASR::Serializable
   include Assert
 
-  connection my_blog
+  connection "my_blog"
   table "users"
 
   has_many articles : Article
 
-  @[CRS::Expose]
-  @[CRS::ReadOnly]
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
   column id : Int64, primary: true
 
-  @[CRS::Expose]
+  @[ASRA::Expose]
   @[Assert::NotBlank]
   column first_name : String
 
-  @[CRS::Expose]
+  @[ASRA::Expose]
   @[Assert::NotBlank]
   column last_name : String
 
-  @[CRS::Expose]
+  @[ASRA::Expose]
   @[Assert::NotBlank]
   @[Assert::Email(mode: :html5)]
   column email : String
 
-  @[CRS::IgnoreOnSerialize]
+  @[ASRA::IgnoreOnSerialize]
   @[Assert::Size(Range(Int32, Int32), range: 8..25, min_message: "Your password is too short", max_message: "Your password is too long")]
   column password : String
 
-  @[CRS::Expose]
-  column created_at : Time?
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
+  column created_at : Time
 
-  @[CRS::Expose]
-  column updated_at : Time?
+  @[ASRA::Expose]
+  @[ASRA::ReadOnly]
+  column updated_at : Time
 
   column deleted_at : Time?
 

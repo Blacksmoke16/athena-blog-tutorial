@@ -1,5 +1,5 @@
 name: blog
-version: 0.9.0
+version: 0.10.0
 
 authors:
   - George Dietrich george@dietrich.app
@@ -15,19 +15,16 @@ license: MIT
 dependencies:
   granite:
     github: amberframework/granite
-    version: 0.21.0
+    version: 0.21.1
   pg:
     github: will/crystal-pg
     version: 0.21.1
   athena:
     github: athena-framework/athena
-    version: 0.9.0
-  CrSerializer:
-    github: blacksmoke16/CrSerializer
-    version: 0.9.1
+    version: 0.10.0
   jwt:
     github: crystal-community/jwt
-    version: 1.4.0
+    version: 1.4.2
   assert:
     github: blacksmoke16/assert
     version: 0.2.0
@@ -35,4 +32,4 @@ dependencies:
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 0.12.0
+    version: ~> 0.13.0
