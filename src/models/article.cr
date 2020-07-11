@@ -26,11 +26,11 @@ class Blog::Models::Article < Granite::Base
 
   @[ASRA::Expose]
   @[ASRA::ReadOnly]
-  column updated_at : Time?
+  column updated_at : Time
 
   @[ASRA::Expose]
   @[ASRA::ReadOnly]
-  column created_at : Time?
+  column created_at : Time
 
   @[ASRA::ReadOnly]
   column deleted_at : Time?

@@ -9,6 +9,7 @@ class Blog::Controllers::ArticleController < ART::Controller
   def initialize(@user_storage : Blog::UserStorage); end
 
   @[ART::Post(path: "")]
+  @[ART::View(status: :created)]
   @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody, model: Blog::Models::Article)]
   def new_article(article : Blog::Models::Article) : Blog::Models::Article
     # Set the owner of the article to the currently authenticated user
@@ -27,8 +28,8 @@ class Blog::Controllers::ArticleController < ART::Controller
   @[ART::Put(path: "")]
   @[ART::ParamConverter("article", converter: Blog::Converters::RequestBody, model: Blog::Models::Article)]
   def update_article(article : Blog::Models::Article) : Blog::Models::Article
-    # Set the owner of the article to the currently authenticated user
-    article.user = @user_storage.user
+    # Ensure that a user cannot edit someone else's article
+    raise ART::Exceptions::Forbidden.new "Only the author of the article can edit it." if article.user_id != @user_storage.user.id
     article.save
     article
   end

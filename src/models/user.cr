@@ -3,7 +3,7 @@ class Blog::Models::User < Granite::Base
   include ASR::Serializable
   include Assert
 
-  connection my_blog
+  connection "my_blog"
   table "users"
 
   has_many articles : Article
@@ -30,10 +30,12 @@ class Blog::Models::User < Granite::Base
   column password : String
 
   @[ASRA::Expose]
-  column created_at : Time?
+  @[ASRA::ReadOnly]
+  column created_at : Time
 
   @[ASRA::Expose]
-  column updated_at : Time?
+  @[ASRA::ReadOnly]
+  column updated_at : Time
 
   column deleted_at : Time?
 

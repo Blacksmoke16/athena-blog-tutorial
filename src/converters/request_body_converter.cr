@@ -49,6 +49,7 @@ struct Blog::Converters::RequestBody < ART::ParamConverterInterface
   # in order to define _what_ model should be used on deserialization.
   configuration model : Granite::Base.class
 
+  # Inject the Serializer instance into our converter.
   def initialize(@serializer : ASR::SerializerInterface); end
 
   # :inherit:
