@@ -8,7 +8,10 @@ class DBObjectConstructor
 
   # Inject `ART::RequestStore` in order to have access to the current request.
   # Also inject `ASR::InstantiateObjectConstructor` to act as our fallback constructor.
-  def initialize(@request_store : ART::RequestStore, @fallback_constructor : ASR::InstantiateObjectConstructor); end
+  def initialize(
+    @request_store : ART::RequestStore,
+    @fallback_constructor : ASR::InstantiateObjectConstructor
+  ); end
 
   # :inherit:
   def construct(navigator : ASR::Navigators::DeserializationNavigatorInterface, properties : Array(ASR::PropertyMetadataBase), data : ASR::Any, type)
@@ -50,7 +53,10 @@ struct Blog::Converters::RequestBody < ART::ParamConverterInterface
   configuration model : Granite::Base.class
 
   # Inject the Serializer instance into our converter.
-  def initialize(@serializer : ASR::SerializerInterface); end
+  def initialize(
+    @serializer : ASR::SerializerInterface,
+    @validator : AVD::Validator::ValidatorInterface
+  ); end
 
   # :inherit:
   def apply(request : HTTP::Request, configuration : Configuration) : Nil
@@ -61,12 +67,15 @@ struct Blog::Converters::RequestBody < ART::ParamConverterInterface
     object = @serializer.deserialize configuration.model, body, :json
 
     # Run the validations.
-    object.validate!
+    violations = @validator.validate object
+
+    # If there are any violations,
+    unless violations.empty?
+      # raise a validation failed exception.
+      raise AVD::Exceptions::ValidationFailedError.new violations
+    end
 
     # Add the resolved object to the request's attributes.
     request.attributes.set configuration.name, object, configuration.model
-  rescue ex : Assert::Exceptions::ValidationError
-    # Return a `422` error if the object failed its validations.
-    raise ART::Exceptions::UnprocessableEntity.new ex.to_s
   end
 end

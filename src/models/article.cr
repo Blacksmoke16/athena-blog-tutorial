@@ -1,7 +1,7 @@
 @[ASRA::ExclusionPolicy(:all)]
 class Blog::Models::Article < Granite::Base
   include ASR::Serializable
-  include Assert
+  include AVD::Validatable
 
   connection my_blog
   table "articles"
@@ -16,12 +16,12 @@ class Blog::Models::Article < Granite::Base
 
   @[ASRA::Expose]
   @[Assert::NotBlank]
-  @[Assert::NotNil]
+  @[Assert::NotNull]
   column title : String
 
   @[ASRA::Expose]
   @[Assert::NotBlank]
-  @[Assert::NotNil]
+  @[Assert::NotNull]
   column body : String
 
   @[ASRA::Expose]
