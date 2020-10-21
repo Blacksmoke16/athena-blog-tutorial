@@ -10,7 +10,7 @@ shards:
 
   athena:
     git: https://github.com/athena-framework/athena.git
-    version: 0.10.0+git.commit.a374183b9f1e149fa12b3cf383155809b422ca1c
+    version: 0.11.0
 
   athena-config:
     git: https://github.com/athena-framework/config.git
@@ -26,11 +26,11 @@ shards:
 
   athena-serializer:
     git: https://github.com/athena-framework/serializer.git
-    version: 0.2.0
+    version: 0.2.1
 
   athena-validator:
     git: https://github.com/athena-framework/validator.git
-    version: 0.1.0+git.commit.11be49b9ab0a80c5205eb6d638a416a63151d3e2
+    version: 0.1.0
 
   bindata:
     git: https://github.com/spider-gazelle/bindata.git
