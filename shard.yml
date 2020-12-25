@@ -21,13 +21,10 @@ dependencies:
     version: 0.21.1
   athena:
     github: athena-framework/athena
-    version: 0.10.0
+    version: 0.12.0
   jwt:
     github: crystal-community/jwt
     version: 1.4.2
-  assert:
-    github: blacksmoke16/assert
-    version: 0.2.0
 
 development_dependencies:
   ameba:

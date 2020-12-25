@@ -1,7 +1,7 @@
 @[ASRA::ExclusionPolicy(:all)]
 class Blog::Models::User < Granite::Base
   include ASR::Serializable
-  include Assert
+  include AVD::Validatable
 
   connection "my_blog"
   table "users"
@@ -22,11 +22,11 @@ class Blog::Models::User < Granite::Base
 
   @[ASRA::Expose]
   @[Assert::NotBlank]
-  @[Assert::Email(mode: :html5)]
+  @[Assert::Email(:html5)]
   column email : String
 
   @[ASRA::IgnoreOnSerialize]
-  @[Assert::Size(Range(Int32, Int32), range: 8..25, min_message: "Your password is too short", max_message: "Your password is too long")]
+  @[Assert::Size(8..25, min_message: "Your password is too short", max_message: "Your password is too long")]
   column password : String
 
   @[ASRA::Expose]

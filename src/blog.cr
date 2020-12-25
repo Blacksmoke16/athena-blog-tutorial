@@ -11,9 +11,6 @@ require "granite/adapter/pg"
 # Require Athena
 require "athena"
 
-# This will eventually be replaced by Athena's validation component
-require "assert"
-
 # Require JWT shard
 require "jwt"
 

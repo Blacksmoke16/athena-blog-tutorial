@@ -1,7 +1,7 @@
 @[ASRA::ExclusionPolicy(:all)]
 class Blog::Models::Article < Granite::Base
   include ASR::Serializable
-  include Assert
+  include AVD::Validatable
 
   connection my_blog
   table "articles"
