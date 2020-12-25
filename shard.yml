@@ -21,7 +21,7 @@ dependencies:
     version: 0.21.1
   athena:
     github: athena-framework/athena
-    version: 0.11.0
+    version: 0.12.0
   jwt:
     github: crystal-community/jwt
     version: 1.4.2

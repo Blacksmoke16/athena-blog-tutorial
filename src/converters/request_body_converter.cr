@@ -72,7 +72,7 @@ struct Blog::Converters::RequestBody < ART::ParamConverterInterface
     # If there are any violations,
     unless violations.empty?
       # raise a validation failed exception.
-      raise AVD::Exceptions::ValidationFailedError.new violations
+      raise AVD::Exceptions::ValidationFailed.new violations
     end
 
     # Add the resolved object to the request's attributes.

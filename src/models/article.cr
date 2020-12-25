@@ -16,12 +16,12 @@ class Blog::Models::Article < Granite::Base
 
   @[ASRA::Expose]
   @[Assert::NotBlank]
-  @[Assert::NotNull]
+  @[Assert::NotNil]
   column title : String
 
   @[ASRA::Expose]
   @[Assert::NotBlank]
-  @[Assert::NotNull]
+  @[Assert::NotNil]
   column body : String
 
   @[ASRA::Expose]
